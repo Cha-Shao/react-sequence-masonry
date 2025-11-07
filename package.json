@@ -1,6 +1,6 @@
 {
   "name": "react-sequence-masonry",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -20,6 +20,10 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "homepage": "https://github.com/cha-Shao/react-sequence-masonry#readme",
+  "bugs": {
+    "url": "https://github.com/cha-Shao/react-sequence-masonry/issues"
+  },
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
