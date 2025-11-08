@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, ReactNode, Children, useCallback, useLayoutEffect, useMemo, createRef } from "react"
+import { useEffect, useRef, useState, ReactNode, Children, useCallback, useLayoutEffect, useMemo, createRef, isValidElement } from "react"
 
 type ColsBreakPoint = number | Record<number, number>
 
@@ -18,8 +18,6 @@ const useHasMounted = () => {
   const [hasMounted, setHasMounted] = useState(false)
   useIsomorphicLayoutEffect(() => {
     setHasMounted(true)
-
-    return () => setHasMounted(false)
   }, [])
   return hasMounted
 }
@@ -58,7 +56,10 @@ const Masonry = ({
   const [containerHeight, setContainerHeight] = useState(0)
 
   const childRefs = useMemo(() =>
-    Children.map(children, () => createRef<HTMLLIElement>())!
+    Children
+      .toArray(children)
+      .filter(isValidElement)
+      .map(() => createRef<HTMLLIElement>())
     , [children])
 
   const [positions, setPositions] = useState<
@@ -112,13 +113,13 @@ const Masonry = ({
       const origWidth = ref.current.getBoundingClientRect().width
       const widthScale = columnWidth / origWidth
       const height = ref.current.getBoundingClientRect().height * widthScale
-      const col = columnHeights.indexOf(Math.min(...columnHeights))
+      const colIndex = columnHeights.indexOf(Math.min(...columnHeights))
 
-      const top = columnHeights[col]
-      const left = col * (columnWidth + gutterPx)
+      const top = columnHeights[colIndex]
+      const left = colIndex * (columnWidth + gutterPx)
 
       newPositions[index] = { top, left, width: columnWidth }
-      columnHeights[col] += height + gutterPx
+      columnHeights[colIndex] += height + gutterPx
     })
 
     setPositions(newPositions)
@@ -154,7 +155,7 @@ const Masonry = ({
       {Children.map(children, (child, index) => {
         const pos = positions[index]
 
-        return (
+        return isValidElement(child) && (
           <li
             key={index}
             ref={childRefs[index]}
