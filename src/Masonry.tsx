@@ -18,6 +18,8 @@ const useHasMounted = () => {
   const [hasMounted, setHasMounted] = useState(false)
   useIsomorphicLayoutEffect(() => {
     setHasMounted(true)
+
+    return () => setHasMounted(false)
   }, [])
   return hasMounted
 }
@@ -125,7 +127,6 @@ const Masonry = ({
     setTimeout(() => {
       setIsLoading(false)
     }, 200)
-
   }, [childRefs, cols, width, gutterPx, hasMounted])
 
   return hasMounted && (
