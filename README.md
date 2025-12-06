@@ -1,4 +1,4 @@
-# React Responsive Masonry
+# React Sequence Masonry
 
 A lightweight, responsive masonry layout React component.
 
