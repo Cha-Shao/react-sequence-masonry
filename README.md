@@ -13,13 +13,13 @@ A lightweight, responsive masonry layout React component.
 ## Installation
 
 ```bash
-npm install react-responsive-masonry
+npm install react-sequence-masonry
 ```
 
 # Usage
 
 ```tsx
-import { Masonry } from "react-responsive-masonry"
+import { Masonry } from "react-sequence-masonry"
 
 export default function Page() {
   return (
